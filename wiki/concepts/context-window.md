@@ -23,5 +23,6 @@
 
 - [什麼是 Context Engineering](what-is-context-engineering.md)
 - [上下文的四種失敗模式](context-failure-modes.md)
+- [Context Rot（上下文腐化）](context-rot.md)
 - [四種策略總覽](four-strategies.md)
 - 來源：[S2 LangChain](../sources/s2-langchain.md)

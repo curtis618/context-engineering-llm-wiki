@@ -21,3 +21,8 @@
 
 - 新增 `raw/S3-breunig.md`、`sources/s3-breunig.md`。
 - 改寫 `context-failure-modes.md`：四種模式各自成節，補上 S3 的定義、研究與實例。
+
+## 2026-11-23 ingest S4 Chroma Context Rot
+
+- 新增 `raw/S4-chroma.md`、`sources/s4-chroma.md`。來源只讀到約前三分之二，已在來源頁註明，未讀到的部分不引用。
+- 新增概念頁 `context-rot.md`；`context-window.md` 加上連結。
