@@ -45,3 +45,9 @@
 
 - 新增 `raw/S7-survey.md`、`sources/s7-survey.md`。來源只讀到摘要，已在來源頁註明。
 - 新增概念頁 `research-landscape.md`；`what-is-context-engineering.md` 加入綜述的定義。
+
+## 2026-11-23 依 AI 忠實度審查修正（簡報流程的關卡 5 退回到 wiki）
+
+- 問題：ingest 時把幾組「強調重點不同」的說法寫成互相對立的「不同觀點」，但原文並沒有互相反駁。
+- 修正 `what-is-context-engineering.md`、`designing-good-context.md`、`compress-context.md`、`production-lessons.md`：「不同觀點」改為「各家強調的重點」或「相關提醒」，並寫明兩邊談的對象。
+- 其他修正：「一次性的工作」改為「單一、獨立的工作」；工具「功能重疊」改為「選擇模糊不清」；價格補上「以 Claude Sonnet 為例」；「等幾週」補上 BERT 年代的前提。

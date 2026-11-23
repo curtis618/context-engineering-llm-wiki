@@ -30,14 +30,14 @@ li::before{content:"";position:absolute;left:.15em;top:.62em;width:.5em;height:.
 strong{color:var(--accent);font-weight:800}
 code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:#ebe4d4;border-radius:.25em;padding:.05em .35em}
 .callout{margin-top:auto !important;background:var(--card);border-left:.35em solid var(--warm);
-  padding:.65em 1em;border-radius:0 .4em .4em 0;font-weight:600}
+  padding:.5em 1em;border-radius:0 .4em .4em 0;font-weight:600;font-size:.95em}
 .grid{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:.8em}
 .gcard{background:var(--card);border:1px solid var(--line);border-top:.3em solid var(--accent);border-radius:.4em;padding:.7em 1em}
 .gcard h3{margin:0 0 .25em;font-size:1.05em;color:var(--accent)}
 .gcard p{font-size:.88em;line-height:1.5}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-table{border-collapse:collapse;width:100%;font-size:.9em}
-th,td{text-align:left;vertical-align:top;padding:.5em .8em;border-bottom:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.84em}
+th,td{text-align:left;vertical-align:top;padding:.4em .8em;border-bottom:1px solid var(--line)}
 th{color:var(--accent);font-weight:800;border-bottom:2px solid var(--accent)}
 td:first-child{font-weight:700;white-space:nowrap}
 footer{flex:none;display:flex;justify-content:space-between;gap:1.5em;align-items:flex-end;
@@ -75,8 +75,8 @@ footer a:hover{color:var(--accent)}
 <section class="slide layout-list" data-n="2">
 <header><span class="stage">為什麼</span><h2>資料給越多，AI 就越聰明嗎？</h2></header>
 <div class="body">
-<p class="lead">一般以為模型會平均地用上整段內容，實驗顯示不是。</p>
-<ul><li>上下文視窗已經大到 <strong>1M token</strong>，但更長的上下文不會產生更好的回答</li><li>模型不會平均地使用整段上下文：輸入越長，表現越不可靠</li><li>對話記憶測驗：只給相關片段（約 <strong>300 token</strong>）的表現，明顯高於給完整歷史（約 <strong>113k token</strong>）</li></ul>
+<p class="lead">一般假設模型會平均地使用整段上下文，實驗顯示不是。</p>
+<ul><li>上下文視窗已經大到 <strong>1M token</strong>，但更長的上下文不會產生更好的回答</li><li>輸入越長，模型的表現越不可靠</li><li>對話記憶測驗：只給相關片段（約 <strong>300 token</strong>）的表現，明顯高於給完整歷史（約 <strong>113k token</strong>）</li></ul>
 <p class="callout">視窗變大，不等於回答變好。</p>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-failure-modes.md">上下文的四種失敗模式</a> · <a href="../wiki/concepts/context-rot.md">Context Rot（上下文腐化）</a>｜來源：<a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s4-chroma.md">S4</a></span><span class="pg">2 / 12</span></footer>
@@ -93,7 +93,7 @@ footer a:hover{color:var(--accent)}
 <header><span class="stage">為什麼</span><h2>實驗證據：Context Rot</h2></header>
 <div class="body">
 <p class="lead">Chroma 測試了 18 個模型（包含 GPT-4.1、Claude 4、Gemini 2.5、Qwen3 系列），任務刻意保持簡單，只改變輸入長度。</p>
-<ul><li><strong>干擾句</strong>（和問題相關但不是答案的句子）：只加一個，表現就變差；加到四個更差</li><li><strong>文章結構</strong>：順序正常、前後連貫的長文，反而比句子被隨機打亂的長文更難找到答案</li><li>這個結果在 18 個模型上都一樣</li></ul>
+<ul><li><strong>干擾句</strong>（和問題相關但不是答案的句子）：只加一個，表現就比沒有干擾時差；加到四個更差</li><li><strong>文章結構</strong>：順序正常、前後連貫的長文，反而比句子被隨機打亂的長文更難找到答案，18 個模型都是如此</li></ul>
 <p class="callout">輸入越長，表現越不可靠，即使任務本身很簡單。</p>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-rot.md">Context Rot（上下文腐化）</a>｜來源：<a href="../wiki/sources/s4-chroma.md">S4</a></span><span class="pg">4 / 12</span></footer>
@@ -101,22 +101,22 @@ footer a:hover{color:var(--accent)}
 <section class="slide layout-grid" data-n="5">
 <header><span class="stage">為什麼</span><h2>塞錯東西的四種下場</h2></header>
 <div class="body">
-<div class="grid" style="--cols:2"><div class="gcard"><h3>污染<span class="sr">：</span></h3><p>錯誤跑進上下文後被反覆引用。玩寶可夢的 Gemini agent 目標被污染後，一直重複沒有意義的策略</p></div><div class="gcard"><h3>分心<span class="sr">：</span></h3><p>上下文太長，模型過度專注其中，忽略訓練時學到的東西。Llama 3.1 405b 在約 32k token 時正確率開始下降</p></div><div class="gcard"><h3>混淆<span class="sr">：</span></h3><p>多餘的內容被模型拿去用。給 Llama 3.1 8b 全部 46 個工具會失敗，只給 19 個就成功</p></div><div class="gcard"><h3>衝突<span class="sr">：</span></h3><p>新資訊和上下文裡原有的資訊矛盾。把題目拆成多輪對話後，表現平均下降 39%</p></div></div>
+<div class="grid" style="--cols:2"><div class="gcard"><h3>污染<span class="sr">：</span></h3><p>錯誤跑進上下文後被反覆引用。玩寶可夢的 Gemini agent 目標被污染後，一直重複沒有意義的策略</p></div><div class="gcard"><h3>分心<span class="sr">：</span></h3><p>上下文太長，模型過度專注其中，忽略訓練時學到的東西。Llama 3.1 405b 在約 32k token 時正確率開始下降</p></div><div class="gcard"><h3>混淆<span class="sr">：</span></h3><p>多餘的內容被模型拿去用。給量化版 Llama 3.1 8b 全部 46 個工具會失敗，只給 19 個就成功</p></div><div class="gcard"><h3>衝突<span class="sr">：</span></h3><p>新資訊和上下文裡原有的資訊矛盾。把題目拆成多輪對話後，表現平均下降 39%</p></div></div>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-failure-modes.md">上下文的四種失敗模式</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s3-breunig.md">S3</a></span><span class="pg">5 / 12</span></footer>
 </section>
 <section class="slide layout-table" data-n="6">
-<header><span class="stage">是什麼</span><h2>四個來源怎麼定義它？</h2></header>
+<header><span class="stage">是什麼</span><h2>四種定義放在一起看</h2></header>
 <div class="body">
 <table><thead><tr><th>誰說的</th><th>Context Engineering 是…</th></tr></thead><tbody><tr><td>Karpathy</td><td>把「剛好對的資訊」填進上下文視窗，供下一步使用的精細藝術與科學</td></tr><tr><td>Lütke</td><td>提供所有必要的上下文，讓任務有可能被 LLM 解決的藝術</td></tr><tr><td>Anthropic</td><td>在模型推論時，挑選並維護「最佳的一組 token」的各種策略</td></tr><tr><td>學術綜述</td><td>一門超越單純提示設計的正式學科，有系統地最佳化提供給 LLM 的資訊</td></tr></tbody></table>
-<p class="callout">共同點：重點都在「放進上下文的資訊」，不只是提示詞怎麼寫。</p>
+<p class="callout">Anthropic 與學術綜述都指出：範圍超出提示詞本身。</p>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s7-survey.md">S7</a></span><span class="pg">6 / 12</span></footer>
 </section>
 <section class="slide layout-table" data-n="7">
 <header><span class="stage">是什麼</span><h2>和寫 Prompt 差在哪？</h2></header>
 <div class="body">
-<table><thead><tr><th>比較項目</th><th>Prompt Engineering</th><th>Context Engineering</th></tr></thead><tbody><tr><td>重點</td><td>怎麼寫好指令，尤其是系統提示</td><td>安排整個上下文視窗的內容</td></tr><tr><td>做幾次</td><td>一次性的工作</td><td>反覆進行，每次傳東西給模型都要重新挑選</td></tr><tr><td>管理範圍</td><td>一段提示</td><td>系統指令、工具、外部資料、對話歷史</td></tr><tr><td>要回答的問題</td><td>怎麼找到對的字句</td><td>什麼樣的上下文配置，最可能讓模型做出想要的行為</td></tr></tbody></table>
+<table><thead><tr><th>比較項目</th><th>Prompt Engineering</th><th>Context Engineering</th></tr></thead><tbody><tr><td>重點</td><td>怎麼寫好指令，尤其是系統提示</td><td>安排整個上下文視窗的內容</td></tr><tr><td>工作性質</td><td>單一、獨立的工作：寫出一份提示</td><td>反覆進行，每次傳東西給模型都要重新挑選</td></tr><tr><td>管理範圍</td><td>一段提示</td><td>系統指令、工具、外部資料、對話歷史</td></tr><tr><td>要回答的問題</td><td>怎麼找到對的字句</td><td>什麼樣的上下文配置，最可能讓模型做出想要的行為</td></tr></tbody></table>
 <p class="callout">Anthropic 把 context engineering 視為 prompt engineering 的自然延伸。</p>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">7 / 12</span></footer>
@@ -124,40 +124,41 @@ footer a:hover{color:var(--accent)}
 <section class="slide layout-list" data-n="8">
 <header><span class="stage">怎麼做</span><h2>好的上下文長什麼樣子？</h2></header>
 <div class="body">
-<p class="lead">核心原則：找出最小的一組高訊號 token，讓想要的結果最可能發生。</p>
-<ul><li><strong>系統提示</strong>：寫在「剛好的高度」，不要寫成死板的 if-else 規則，也不要寫成空泛的指示</li><li><strong>精簡不代表短</strong>：先用最少的提示測試，再根據實際出錯的地方補上指令與範例</li><li><strong>工具</strong>：避免太多、功能重疊。人類工程師都說不出該用哪個工具，agent 也做不到</li><li><strong>範例</strong>：不要塞一長串特殊情況，挑少量、多樣、有代表性的例子</li></ul>
+<p class="lead">Anthropic 的核心原則：找出最小的一組高訊號 token，讓想要的結果最可能發生。</p>
+<ul><li><strong>系統提示</strong>：寫在「剛好的高度」，不要寫成死板的 if-else 規則，也不要寫成空泛的指示</li><li><strong>精簡不代表短</strong>：先用最少的提示測試，再根據實際出錯的地方補上指令與範例</li><li><strong>工具</strong>：避免太多、選擇模糊不清。人類工程師都說不出該用哪個工具，agent 也做不到</li><li><strong>範例</strong>：不要塞一長串特殊情況，挑少量、多樣、有代表性的例子</li></ul>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a>｜來源：<a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">8 / 12</span></footer>
 </section>
 <section class="slide layout-grid" data-n="9">
 <header><span class="stage">怎麼做</span><h2>四種策略：存、取、縮、分</h2></header>
 <div class="body">
-<div class="grid" style="--cols:2"><div class="gcard"><h3>寫入 Write<span class="sr">：</span></h3><p>把資訊存到視窗外面，需要時再用。例如 agent 把筆記寫進待辦清單或 NOTES.md，之後再讀回來</p></div><div class="gcard"><h3>選取 Select<span class="sr">：</span></h3><p>把需要的資訊拉進視窗。只保留檔案路徑、網址這類輕量的索引，需要時才載入內容</p></div><div class="gcard"><h3>壓縮 Compress<span class="sr">：</span></h3><p>只保留完成任務所需的 token。對話快到視窗上限時先摘要，再用摘要開一個新視窗</p></div><div class="gcard"><h3>隔離 Isolate<span class="sr">：</span></h3><p>把上下文拆開分頭處理。子代理各自探索，只回傳 1,000-2,000 個 token 的摘要</p></div></div>
+<div class="grid" style="--cols:2"><div class="gcard"><h3>寫入 Write<span class="sr">：</span></h3><p>把資訊存到視窗外面，需要時再用。例如 agent 把筆記寫進待辦清單或 NOTES.md，之後再讀回來</p></div><div class="gcard"><h3>選取 Select<span class="sr">：</span></h3><p>把需要的資訊拉進視窗。只保留檔案路徑、網址這類輕量的索引，需要時才載入內容</p></div><div class="gcard"><h3>壓縮 Compress<span class="sr">：</span></h3><p>只保留完成任務所需的 token。對話快到視窗上限時先摘要，再用摘要開一個新視窗</p></div><div class="gcard"><h3>隔離 Isolate<span class="sr">：</span></h3><p>把上下文拆開分頭處理。子代理各自探索，只回傳濃縮過的摘要，通常是 1,000-2,000 個 token</p></div></div>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/four-strategies.md">四種策略總覽：寫入、選取、壓縮、隔離</a> · <a href="../wiki/concepts/write-context.md">策略一：寫入（Write）</a> · <a href="../wiki/concepts/select-context.md">策略二：選取（Select）</a> · <a href="../wiki/concepts/compress-context.md">策略三：壓縮（Compress）</a> · <a href="../wiki/concepts/isolate-context.md">策略四：隔離（Isolate）</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">9 / 12</span></footer>
 </section>
 <section class="slide layout-list" data-n="10">
 <header><span class="stage">實務</span><h2>實戰：Manus 團隊的心得</h2></header>
 <div class="body">
-<p class="lead">選 context engineering 而不是自己訓練模型：改進可以在幾小時內上線，不用等幾週。</p>
-<ul><li><strong>圍繞快取設計</strong>：輸入輸出 token 比例約 100:1；有快取的輸入每百萬 token 0.30 美元，沒快取 3 美元，差 10 倍</li><li><strong>靠複誦控制注意力</strong>：一個任務平均約 50 次工具呼叫，agent 容易忘記目標；讓它反覆改寫 todo.md，把目標放回上下文最後面</li><li><strong>把錯誤留下來</strong>：不要清掉失敗的動作與錯誤訊息，模型看到失敗的結果才會調整</li></ul>
+<p class="lead">作者的經驗：在 BERT 的年代微調模型，每次改動可能要等幾週；用 context engineering，改進可以在幾小時內上線。</p>
+<ul><li><strong>圍繞快取設計</strong>：輸入輸出 token 比例約 100:1；以 Claude Sonnet 為例，有快取的輸入 0.30 美元，沒快取 3 美元，差 10 倍</li><li><strong>靠複誦控制注意力</strong>：一個任務平均約 50 次工具呼叫，agent 容易忘記目標；讓它反覆改寫 todo.md，把目標放回上下文最後面</li><li><strong>把錯誤留下來</strong>：不要清掉失敗的動作與錯誤訊息，模型看到失敗的結果才會調整</li></ul>
 </div>
 <footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/production-lessons.md">實戰經驗：Manus 的六條心得</a>｜來源：<a href="../wiki/sources/s6-manus.md">S6</a></span><span class="pg">10 / 12</span></footer>
 </section>
 <section class="slide layout-table" data-n="11">
-<header><span class="stage">實務</span><h2>專家也還沒有共識的地方</h2></header>
+<header><span class="stage">實務</span><h2>各家強調的重點不同</h2></header>
 <div class="body">
-<table><thead><tr><th>問題</th><th>一種說法</th><th>另一種說法</th></tr></thead><tbody><tr><td>給多少上下文？</td><td>Lütke：提供「所有」讓任務可解的上下文</td><td>Anthropic：找出「最小的一組」高訊號 token</td></tr><tr><td>範例有幫助嗎？</td><td>Anthropic：仍強烈建議提供範例</td><td>Manus：範例太一致，agent 會陷入固定做法</td></tr><tr><td>怎麼壓縮？</td><td>Anthropic、LangChain：摘要後繼續</td><td>Manus：壓縮要能還原，例如留下網址</td></tr><tr><td>錯誤要留著嗎？</td><td>Manus：留在上下文裡</td><td>另一方：錯誤會被反覆引用，讓模型迷路</td></tr></tbody></table>
+<table><thead><tr><th>主題</th><th>一邊強調</th><th>另一邊強調</th></tr></thead><tbody><tr><td>給多少上下文</td><td>Lütke：提供讓任務可解所需的所有上下文</td><td>Anthropic：找出最小的一組高訊號 token</td></tr><tr><td>範例與模仿</td><td>Anthropic：提供少量、多樣、有代表性的範例</td><td>Manus：agent 會模仿累積的紀錄，要加入少量變化</td></tr><tr><td>壓縮</td><td>Anthropic：摘要後用新視窗繼續</td><td>Manus：壓縮要能還原，例如留下網址</td></tr><tr><td>上下文裡的錯誤</td><td>Manus：失敗紀錄要留下</td><td>〈How Long Contexts Fail〉：錯誤的資訊會被反覆引用</td></tr></tbody></table>
+<p class="callout">這些說法出自不同文章，談的對象不完全相同，原文沒有互相反駁。</p>
 </div>
-<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/compress-context.md">策略三：壓縮（Compress）</a> · <a href="../wiki/concepts/production-lessons.md">實戰經驗：Manus 的六條心得</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s6-manus.md">S6</a></span><span class="pg">11 / 12</span></footer>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/compress-context.md">策略三：壓縮（Compress）</a> · <a href="../wiki/concepts/production-lessons.md">實戰經驗：Manus 的六條心得</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s6-manus.md">S6</a></span><span class="pg">11 / 12</span></footer>
 </section>
 <section class="slide layout-list" data-n="12">
 <header><span class="stage">總結</span><h2>帶走三件事</h2></header>
 <div class="body">
 <ul><li><strong>上下文是有限資源</strong>：放越多，每一份新增內容的幫助越小</li><li><strong>目標是最小的一組高訊號 token</strong>，讓想要的結果最可能發生</li><li><strong>四種策略</strong>：寫入、選取、壓縮、隔離</li></ul>
-<p class="callout">還沒解決的問題：模型很擅長理解複雜的上下文，但在產生同樣複雜的長篇輸出時有明顯限制。</p>
+<p class="callout">回到開場的問題：更長的上下文，不會產生更好的回答。</p>
 </div>
-<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-window.md">上下文視窗（Context Window）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/four-strategies.md">四種策略總覽：寫入、選取、壓縮、隔離</a> · <a href="../wiki/concepts/research-landscape.md">研究全景：學術界怎麼分類</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s7-survey.md">S7</a></span><span class="pg">12 / 12</span></footer>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-window.md">上下文視窗（Context Window）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/four-strategies.md">四種策略總覽：寫入、選取、壓縮、隔離</a> · <a href="../wiki/concepts/context-failure-modes.md">上下文的四種失敗模式</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">12 / 12</span></footer>
 </section>
 </main>
 <div class="bar"><i id="bar"></i></div>
