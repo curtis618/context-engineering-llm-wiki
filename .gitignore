@@ -1,0 +1,4 @@
+# 老師的課堂簡報不是我的作品，不放進公開 repo
+*.pdf
+__pycache__/
+.claude/
