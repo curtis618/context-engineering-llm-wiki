@@ -58,3 +58,8 @@
 - `context-failure-modes.md`：六條研究與例子補上「據該文轉述」，因為原始研究沒有讀；補回「軼事性質」「有時」。
 - `designing-good-context.md`、`production-lessons.md`、`what-is-context-engineering.md`、`compress-context.md`：上一輪把「對立」改成「其實不衝突」，但那也是 wiki 自己下的結論。改成只並列、註明出自不同文章。
 - 補回被拿掉的限定詞與前提：「除非絕對必要」「典型任務」（原寫成平均）「比較不容易重犯」「在最好的模型上」「一項關鍵優先事項」（原寫成首要任務）；一句 Karpathy 的論點補上歸屬。
+
+## 2026-11-23 第 3 次審查後修正（5 項，全部低嚴重度）
+
+- `compress-context.md`：刪掉「也」（等於判定兩個來源一致）；「Anthropic 稱這個做法為 compaction」改成「Anthropic 介紹 compaction」（原句把兩篇文章的概念畫上等號）。
+- `what-is-context-engineering.md`：刪掉 wiki 自己加的「因為上下文是有限資源」；Karpathy 的論點改回貼近原文的說法；Karpathy 的清單補回「相關資料（可能是多模態）」。
