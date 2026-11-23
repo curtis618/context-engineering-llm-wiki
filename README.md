@@ -45,8 +45,8 @@ Ingest 的 7 篇來源：
 
 ## 3. 教學 HTML 簡報
 
-- 檔案：[`docs/index.html`](docs/index.html)（12 頁，用瀏覽器開啟；方向鍵或點擊換頁，可列印成 PDF）
-- 教學結構：為什麼（第 2–5 頁）→ 是什麼（第 6–7 頁）→ 怎麼做（第 8–9 頁）→ 實務（第 10–11 頁）→ 總結（第 12 頁）
+- 檔案：[`docs/index.html`](docs/index.html)（13 頁，用瀏覽器開啟；方向鍵或點擊換頁，右下角 ☰ 或按 M 開啟目錄可跳頁，可列印成 PDF）
+- 教學結構：目錄（第 2 頁）→ 為什麼（第 3–6 頁）→ 是什麼（第 7–8 頁）→ 怎麼做（第 9–10 頁）→ 實務（第 11–12 頁）→ 總結（第 13 頁）
 - 每一頁底部都有「出處」，連到對應的 wiki 頁面與來源頁。這一行不是手寫的，是渲染程式從該頁引用的證據卡自動產生的。
 
 簡報每一頁和 wiki 的對應：
@@ -54,17 +54,18 @@ Ingest 的 7 篇來源：
 | 頁 | 標題 | 對應的 wiki 概念頁 | 來源 |
 |---|---|---|---|
 | 1 | Context Engineering 入門 | — | — |
-| 2 | 資料給越多，AI 就越聰明嗎？ | `context-failure-modes.md`、`context-rot.md` | S3 S4 |
-| 3 | 視窗是有限的工作記憶 | `context-window.md` | S2 S5 |
-| 4 | 實驗證據：Context Rot | `context-rot.md` | S4 |
-| 5 | 塞錯東西的四種下場 | `context-failure-modes.md` | S2 S3 |
-| 6 | 四種定義放在一起看 | `what-is-context-engineering.md` | S1 S5 S7 |
-| 7 | 和寫 Prompt 差在哪？ | `what-is-context-engineering.md` | S1 S5 |
-| 8 | 好的上下文長什麼樣子？ | `designing-good-context.md` | S5 |
-| 9 | 四種策略：存、取、縮、分 | `four-strategies.md` 與四個策略頁 | S2 S5 |
-| 10 | 實戰：Manus 團隊的心得 | `production-lessons.md` | S6 |
-| 11 | 各家強調的重點不同 | `what-is-context-engineering.md`、`designing-good-context.md`、`compress-context.md`、`production-lessons.md` | S1 S3 S5 S6 |
-| 12 | 帶走三件事 | `context-window.md`、`designing-good-context.md`、`four-strategies.md`、`context-failure-modes.md` | S2 S3 S5 |
+| 2 | 目錄 | —（只列各頁標題） | — |
+| 3 | 資料給越多，AI 就越聰明嗎？ | `context-failure-modes.md`、`context-rot.md` | S3 S4 |
+| 4 | 視窗是有限的工作記憶 | `context-window.md` | S2 S5 |
+| 5 | 實驗證據：Context Rot | `context-rot.md` | S4 |
+| 6 | 塞錯東西的四種下場 | `context-failure-modes.md` | S2 S3 |
+| 7 | 四種定義放在一起看 | `what-is-context-engineering.md` | S1 S5 S7 |
+| 8 | 和寫 Prompt 差在哪？ | `what-is-context-engineering.md` | S1 S5 |
+| 9 | 好的上下文長什麼樣子？ | `designing-good-context.md` | S5 |
+| 10 | 四種策略：存、取、縮、分 | `four-strategies.md` 與四個策略頁 | S2 S5 |
+| 11 | 實戰：Manus 團隊的心得 | `production-lessons.md` | S6 |
+| 12 | 各家強調的重點不同 | `what-is-context-engineering.md`、`designing-good-context.md`、`compress-context.md`、`production-lessons.md` | S1 S3 S5 S6 |
+| 13 | 帶走三件事 | `context-window.md`、`designing-good-context.md`、`four-strategies.md`、`context-failure-modes.md` | S2 S3 S5 |
 
 對應關係可以逐層追回去：簡報每頁 → [`drafts/`](topic-context-engineering/drafts/)（逐頁稿，標頭列出引用的卡片）→ [`cards/`](topic-context-engineering/cards/)（證據卡）→ `wiki/concepts/` → `raw/`。
 
@@ -161,6 +162,8 @@ flowchart TD
 | 12 | **關卡 0＋關卡 5（第 2 次 AI 審查）** | **簡報 1 頁 FAIL；wiki 12 個問題** | v2 新增的關卡 0 第一次執行：檢查 134 條 wiki 條目，找到 12 個問題（中 4、低 8）。包含二手研究沒註明是轉述、限定詞被拿掉，以及**上一輪修過頭**：把「對立」改成「其實不衝突」，但那也是 wiki 自己下的結論 → 改成只並列，重抽 14 張卡，改 4 頁 |
 | 13 | 第 3 次 AI 審查（只審改過的部分） | **簡報 0 頁 FAIL** | wiki 還有 5 個低嚴重度的用詞問題，已修正。大圈達到 3 次上限，停止 |
 | 14 | 所有程式關卡＋瀏覽器實測 | PASS | 12 頁無溢出、每次只顯示一頁 |
+| 15 | **人工驗收成品** | **退回** | 我要求要有目錄 → 退回大綱與逐頁稿，在封面後新增目錄頁（共 13 頁），樣板加上可點選跳頁的目錄選單；其餘 12 頁內容不動 |
+| 16 | 關卡 3、4、6＋瀏覽器實測 | PASS | 13 頁無溢出；目錄選單實測可跳頁 |
 
 三次 AI 審查都是全新的子代理，彼此看不到對方的報告，也看不到寫作過程。
 
