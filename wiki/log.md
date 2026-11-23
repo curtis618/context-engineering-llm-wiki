@@ -40,3 +40,8 @@
 - 新增 `raw/S6-manus.md`、`sources/s6-manus.md`。
 - 新增概念頁 `production-lessons.md`，含「不同觀點」：錯誤該不該留在上下文（S6 vs S3）。
 - 更新 `write-context.md`（檔案系統、todo.md）、`compress-context.md`（新增「不同觀點」：摘要 vs 可還原壓縮）、`designing-good-context.md`（新增「不同觀點」：範例有幫助 vs 可能帶偏）。
+
+## 2026-11-23 ingest S7 Survey
+
+- 新增 `raw/S7-survey.md`、`sources/s7-survey.md`。來源只讀到摘要，已在來源頁註明。
+- 新增概念頁 `research-landscape.md`；`what-is-context-engineering.md` 加入綜述的定義。

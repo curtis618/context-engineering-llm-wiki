@@ -9,6 +9,7 @@
 - Karpathy 列出要放進去的東西：任務說明、少量範例（few-shot examples）、RAG 查到的資料、工具、狀態與歷史，以及壓縮過的內容。 [S1]
 - LangChain 的定義：在 agent 執行的每一步，把剛好對的資訊填進上下文視窗的藝術與科學。 [S2]
 - Anthropic 的定義：在模型推論時，挑選並維護「最佳的一組 token」的各種策略，範圍包含 prompt 以外所有會進到上下文的資訊。 [S5]
+- 學術綜述的定義：一門超越單純提示設計的正式學科，有系統地最佳化提供給 LLM 的資訊。 [S7]
 - Cognition 公司認為，context engineering 實際上是打造 AI agent 的工程師的首要工作。 [S2]
 
 ## 和 Prompt Engineering 的差別
@@ -30,4 +31,5 @@
 - [上下文視窗](context-window.md)
 - [好的上下文長什麼樣子](designing-good-context.md)
 - [四種策略總覽](four-strategies.md)
-- 來源：[S1 Willison](../sources/s1-willison.md)、[S2 LangChain](../sources/s2-langchain.md)、[S5 Anthropic](../sources/s5-anthropic.md)
+- [研究全景：學術界怎麼分類](research-landscape.md)
+- 來源：[S1 Willison](../sources/s1-willison.md)、[S2 LangChain](../sources/s2-langchain.md)、[S5 Anthropic](../sources/s5-anthropic.md)、[S7 Survey](../sources/s7-survey.md)
