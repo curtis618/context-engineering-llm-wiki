@@ -26,3 +26,11 @@
 
 - 新增 `raw/S4-chroma.md`、`sources/s4-chroma.md`。來源只讀到約前三分之二，已在來源頁註明，未讀到的部分不引用。
 - 新增概念頁 `context-rot.md`；`context-window.md` 加上連結。
+
+## 2026-11-23 ingest S5 Anthropic
+
+- 新增 `raw/S5-anthropic.md`、`sources/s5-anthropic.md`。
+- 新增概念頁 `designing-good-context.md`。
+- 更新 `what-is-context-engineering.md`（Anthropic 的定義、與 prompt engineering 的差別、新增「不同觀點」：給全部 vs 給最少）。
+- 更新 `context-window.md`（有限資源、注意力預算）、`context-rot.md`（成因解釋）。
+- 更新四個策略頁：寫入（結構化筆記）、選取（即時取用）、壓縮（compaction 與風險）、隔離（子代理回傳摘要）。

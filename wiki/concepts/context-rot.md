@@ -16,8 +16,14 @@
 - 文章結構：順序正常、前後連貫的長文，反而比句子被隨機打亂的長文更難找到答案，18 個模型都是如此。 [S4]
 - 對話記憶測驗：只給相關片段（約 300 token）時的表現，明顯高於給完整歷史（約 113k token）時。 [S4]
 
+## Anthropic 的說法與解釋
+
+- Anthropic 對 context rot 的描述：視窗裡的 token 越多，模型準確回想其中資訊的能力就越低；所有模型都有這個現象，只是程度不同。 [S5]
+- 原因之一：n 個 token 之間有 n² 組關係要顧，內容越長，注意力越分散。 [S5]
+- 原因之二：訓練資料裡短的文字比長的多，模型處理長距離關係的經驗比較少。 [S5]
+
 ## 相關頁面
 
 - [上下文視窗](context-window.md)
 - [上下文的四種失敗模式](context-failure-modes.md)
-- 來源：[S4 Chroma](../sources/s4-chroma.md)
+- 來源：[S4 Chroma](../sources/s4-chroma.md)、[S5 Anthropic](../sources/s5-anthropic.md)
