@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context Engineering 入門</title>
+<style>
+:root{
+  --paper:#f7f2e8; --ink:#1c2b30; --muted:#5a696e; --accent:#0e6a62; --warm:#bf5327;
+  --card:#fffdf8; --line:#dcd3c1; --backdrop:#1f2c2c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--backdrop)}
+body{display:grid;place-items:center;overflow:hidden;color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;line-height:1.55}
+.deck{--w:min(100vw,calc(100vh*16/9));--w:min(100vw,calc(100dvh*16/9));
+  width:var(--w);height:calc(var(--w)*9/16);font-size:calc(var(--w)/64);position:relative;background:var(--paper)}
+.slide{position:absolute;inset:0;display:none;background:var(--paper);flex-direction:column;padding:2.4em 3.6em 1.3em;overflow:hidden}
+.slide.on{display:flex}
+header{flex:none;margin-bottom:1.1em}
+.stage{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.12em;color:var(--accent);
+  border:1px solid var(--accent);border-radius:99em;padding:.12em .9em;margin-bottom:.55em}
+h2{margin:0;font-size:2.25em;line-height:1.25;font-weight:800;text-wrap:balance}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;gap:.8em;font-size:1.3em}
+.body p{margin:0}
+.lead{color:var(--muted);font-size:1.05em}
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.55em}
+li{position:relative;padding-left:1.3em}
+li::before{content:"";position:absolute;left:.15em;top:.62em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+strong{color:var(--accent);font-weight:800}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:#ebe4d4;border-radius:.25em;padding:.05em .35em}
+.callout{margin-top:auto !important;background:var(--card);border-left:.35em solid var(--warm);
+  padding:.65em 1em;border-radius:0 .4em .4em 0;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:.8em}
+.gcard{background:var(--card);border:1px solid var(--line);border-top:.3em solid var(--accent);border-radius:.4em;padding:.7em 1em}
+.gcard h3{margin:0 0 .25em;font-size:1.05em;color:var(--accent)}
+.gcard p{font-size:.88em;line-height:1.5}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+table{border-collapse:collapse;width:100%;font-size:.9em}
+th,td{text-align:left;vertical-align:top;padding:.5em .8em;border-bottom:1px solid var(--line)}
+th{color:var(--accent);font-weight:800;border-bottom:2px solid var(--accent)}
+td:first-child{font-weight:700;white-space:nowrap}
+footer{flex:none;display:flex;justify-content:space-between;gap:1.5em;align-items:flex-end;
+  margin-top:.9em;padding-top:.55em;border-top:1px solid var(--line);font-size:.72em;color:var(--muted)}
+footer a{color:var(--muted);text-underline-offset:.2em}
+footer a:hover{color:var(--accent)}
+.pg{white-space:nowrap;font-variant-numeric:tabular-nums}
+.layout-cover{justify-content:center;background:linear-gradient(135deg,#0e6a62 0 38%,var(--paper) 38%)}
+.layout-cover .body{justify-content:center;gap:1em;padding-left:42%}
+.layout-cover h1{margin:0;font-size:2.5em;line-height:1.2;font-weight:900;text-wrap:balance}
+.layout-cover footer{border:0}
+.hud{position:fixed;right:14px;bottom:12px;display:flex;gap:6px;opacity:.55}
+.hud:hover{opacity:1}
+.hud button{font:inherit;font-size:18px;width:38px;height:38px;border-radius:50%;border:0;background:#ffffff22;color:#fff;cursor:pointer}
+.hud button:focus-visible{outline:2px solid #fff}
+.bar{position:fixed;left:0;top:0;height:4px;width:100%;background:#ffffff18}
+.bar i{display:block;height:100%;width:0;background:var(--warm);transition:width .2s}
+@media print{
+  html,body{height:auto;background:#fff;overflow:visible;display:block}
+  .deck{width:100%;height:auto;font-size:15px}
+  .slide{position:relative;display:flex;height:100vh;page-break-after:always}
+  .hud,.bar{display:none}
+}
+</style>
+</head>
+<body>
+<main class="deck" id="deck">
+<section class="slide layout-cover" data-n="1">
+<div class="body"><h1>Context Engineering 入門</h1>
+<p class="lead">把對的資訊，放到 AI 眼前</p>
+<p>生成式人工智慧　課堂報告</p>
+<p>內容全部來自我自己建立的 LLM Wiki</p></div>
+<footer><span class="src"></span><span class="pg">1 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="2">
+<header><span class="stage">為什麼</span><h2>資料給越多，AI 就越聰明嗎？</h2></header>
+<div class="body">
+<p class="lead">一般以為模型會平均地用上整段內容，實驗顯示不是。</p>
+<ul><li>上下文視窗已經大到 <strong>1M token</strong>，但更長的上下文不會產生更好的回答</li><li>模型不會平均地使用整段上下文：輸入越長，表現越不可靠</li><li>對話記憶測驗：只給相關片段（約 <strong>300 token</strong>）的表現，明顯高於給完整歷史（約 <strong>113k token</strong>）</li></ul>
+<p class="callout">視窗變大，不等於回答變好。</p>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-failure-modes.md">上下文的四種失敗模式</a> · <a href="../wiki/concepts/context-rot.md">Context Rot（上下文腐化）</a>｜來源：<a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s4-chroma.md">S4</a></span><span class="pg">2 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="3">
+<header><span class="stage">為什麼</span><h2>視窗是有限的工作記憶</h2></header>
+<div class="body">
+<p class="lead">Karpathy 的比喻：LLM 像作業系統，模型是 CPU，上下文視窗是 RAM，也就是模型的工作記憶。</p>
+<ul><li>視窗裡裝三類東西：<strong>指令</strong>、<strong>知識</strong>、<strong>工具回傳的結果</strong></li><li>上下文是<strong>有限資源</strong>，而且邊際效益遞減：放越多，每一份新增內容的幫助越小</li><li>模型有「<strong>注意力預算</strong>」，每多一個 token 就會消耗一點</li></ul>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-window.md">上下文視窗（Context Window）</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">3 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="4">
+<header><span class="stage">為什麼</span><h2>實驗證據：Context Rot</h2></header>
+<div class="body">
+<p class="lead">Chroma 測試了 18 個模型（包含 GPT-4.1、Claude 4、Gemini 2.5、Qwen3 系列），任務刻意保持簡單，只改變輸入長度。</p>
+<ul><li><strong>干擾句</strong>（和問題相關但不是答案的句子）：只加一個，表現就變差；加到四個更差</li><li><strong>文章結構</strong>：順序正常、前後連貫的長文，反而比句子被隨機打亂的長文更難找到答案</li><li>這個結果在 18 個模型上都一樣</li></ul>
+<p class="callout">輸入越長，表現越不可靠，即使任務本身很簡單。</p>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-rot.md">Context Rot（上下文腐化）</a>｜來源：<a href="../wiki/sources/s4-chroma.md">S4</a></span><span class="pg">4 / 12</span></footer>
+</section>
+<section class="slide layout-grid" data-n="5">
+<header><span class="stage">為什麼</span><h2>塞錯東西的四種下場</h2></header>
+<div class="body">
+<div class="grid" style="--cols:2"><div class="gcard"><h3>污染<span class="sr">：</span></h3><p>錯誤跑進上下文後被反覆引用。玩寶可夢的 Gemini agent 目標被污染後，一直重複沒有意義的策略</p></div><div class="gcard"><h3>分心<span class="sr">：</span></h3><p>上下文太長，模型過度專注其中，忽略訓練時學到的東西。Llama 3.1 405b 在約 32k token 時正確率開始下降</p></div><div class="gcard"><h3>混淆<span class="sr">：</span></h3><p>多餘的內容被模型拿去用。給 Llama 3.1 8b 全部 46 個工具會失敗，只給 19 個就成功</p></div><div class="gcard"><h3>衝突<span class="sr">：</span></h3><p>新資訊和上下文裡原有的資訊矛盾。把題目拆成多輪對話後，表現平均下降 39%</p></div></div>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-failure-modes.md">上下文的四種失敗模式</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s3-breunig.md">S3</a></span><span class="pg">5 / 12</span></footer>
+</section>
+<section class="slide layout-table" data-n="6">
+<header><span class="stage">是什麼</span><h2>四個來源怎麼定義它？</h2></header>
+<div class="body">
+<table><thead><tr><th>誰說的</th><th>Context Engineering 是…</th></tr></thead><tbody><tr><td>Karpathy</td><td>把「剛好對的資訊」填進上下文視窗，供下一步使用的精細藝術與科學</td></tr><tr><td>Lütke</td><td>提供所有必要的上下文，讓任務有可能被 LLM 解決的藝術</td></tr><tr><td>Anthropic</td><td>在模型推論時，挑選並維護「最佳的一組 token」的各種策略</td></tr><tr><td>學術綜述</td><td>一門超越單純提示設計的正式學科，有系統地最佳化提供給 LLM 的資訊</td></tr></tbody></table>
+<p class="callout">共同點：重點都在「放進上下文的資訊」，不只是提示詞怎麼寫。</p>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s7-survey.md">S7</a></span><span class="pg">6 / 12</span></footer>
+</section>
+<section class="slide layout-table" data-n="7">
+<header><span class="stage">是什麼</span><h2>和寫 Prompt 差在哪？</h2></header>
+<div class="body">
+<table><thead><tr><th>比較項目</th><th>Prompt Engineering</th><th>Context Engineering</th></tr></thead><tbody><tr><td>重點</td><td>怎麼寫好指令，尤其是系統提示</td><td>安排整個上下文視窗的內容</td></tr><tr><td>做幾次</td><td>一次性的工作</td><td>反覆進行，每次傳東西給模型都要重新挑選</td></tr><tr><td>管理範圍</td><td>一段提示</td><td>系統指令、工具、外部資料、對話歷史</td></tr><tr><td>要回答的問題</td><td>怎麼找到對的字句</td><td>什麼樣的上下文配置，最可能讓模型做出想要的行為</td></tr></tbody></table>
+<p class="callout">Anthropic 把 context engineering 視為 prompt engineering 的自然延伸。</p>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">7 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="8">
+<header><span class="stage">怎麼做</span><h2>好的上下文長什麼樣子？</h2></header>
+<div class="body">
+<p class="lead">核心原則：找出最小的一組高訊號 token，讓想要的結果最可能發生。</p>
+<ul><li><strong>系統提示</strong>：寫在「剛好的高度」，不要寫成死板的 if-else 規則，也不要寫成空泛的指示</li><li><strong>精簡不代表短</strong>：先用最少的提示測試，再根據實際出錯的地方補上指令與範例</li><li><strong>工具</strong>：避免太多、功能重疊。人類工程師都說不出該用哪個工具，agent 也做不到</li><li><strong>範例</strong>：不要塞一長串特殊情況，挑少量、多樣、有代表性的例子</li></ul>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a>｜來源：<a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">8 / 12</span></footer>
+</section>
+<section class="slide layout-grid" data-n="9">
+<header><span class="stage">怎麼做</span><h2>四種策略：存、取、縮、分</h2></header>
+<div class="body">
+<div class="grid" style="--cols:2"><div class="gcard"><h3>寫入 Write<span class="sr">：</span></h3><p>把資訊存到視窗外面，需要時再用。例如 agent 把筆記寫進待辦清單或 NOTES.md，之後再讀回來</p></div><div class="gcard"><h3>選取 Select<span class="sr">：</span></h3><p>把需要的資訊拉進視窗。只保留檔案路徑、網址這類輕量的索引，需要時才載入內容</p></div><div class="gcard"><h3>壓縮 Compress<span class="sr">：</span></h3><p>只保留完成任務所需的 token。對話快到視窗上限時先摘要，再用摘要開一個新視窗</p></div><div class="gcard"><h3>隔離 Isolate<span class="sr">：</span></h3><p>把上下文拆開分頭處理。子代理各自探索，只回傳 1,000-2,000 個 token 的摘要</p></div></div>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/four-strategies.md">四種策略總覽：寫入、選取、壓縮、隔離</a> · <a href="../wiki/concepts/write-context.md">策略一：寫入（Write）</a> · <a href="../wiki/concepts/select-context.md">策略二：選取（Select）</a> · <a href="../wiki/concepts/compress-context.md">策略三：壓縮（Compress）</a> · <a href="../wiki/concepts/isolate-context.md">策略四：隔離（Isolate）</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s5-anthropic.md">S5</a></span><span class="pg">9 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="10">
+<header><span class="stage">實務</span><h2>實戰：Manus 團隊的心得</h2></header>
+<div class="body">
+<p class="lead">選 context engineering 而不是自己訓練模型：改進可以在幾小時內上線，不用等幾週。</p>
+<ul><li><strong>圍繞快取設計</strong>：輸入輸出 token 比例約 100:1；有快取的輸入每百萬 token 0.30 美元，沒快取 3 美元，差 10 倍</li><li><strong>靠複誦控制注意力</strong>：一個任務平均約 50 次工具呼叫，agent 容易忘記目標；讓它反覆改寫 todo.md，把目標放回上下文最後面</li><li><strong>把錯誤留下來</strong>：不要清掉失敗的動作與錯誤訊息，模型看到失敗的結果才會調整</li></ul>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/production-lessons.md">實戰經驗：Manus 的六條心得</a>｜來源：<a href="../wiki/sources/s6-manus.md">S6</a></span><span class="pg">10 / 12</span></footer>
+</section>
+<section class="slide layout-table" data-n="11">
+<header><span class="stage">實務</span><h2>專家也還沒有共識的地方</h2></header>
+<div class="body">
+<table><thead><tr><th>問題</th><th>一種說法</th><th>另一種說法</th></tr></thead><tbody><tr><td>給多少上下文？</td><td>Lütke：提供「所有」讓任務可解的上下文</td><td>Anthropic：找出「最小的一組」高訊號 token</td></tr><tr><td>範例有幫助嗎？</td><td>Anthropic：仍強烈建議提供範例</td><td>Manus：範例太一致，agent 會陷入固定做法</td></tr><tr><td>怎麼壓縮？</td><td>Anthropic、LangChain：摘要後繼續</td><td>Manus：壓縮要能還原，例如留下網址</td></tr><tr><td>錯誤要留著嗎？</td><td>Manus：留在上下文裡</td><td>另一方：錯誤會被反覆引用，讓模型迷路</td></tr></tbody></table>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/what-is-context-engineering.md">什麼是 Context Engineering（上下文工程）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/compress-context.md">策略三：壓縮（Compress）</a> · <a href="../wiki/concepts/production-lessons.md">實戰經驗：Manus 的六條心得</a>｜來源：<a href="../wiki/sources/s1-willison.md">S1</a> <a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s3-breunig.md">S3</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s6-manus.md">S6</a></span><span class="pg">11 / 12</span></footer>
+</section>
+<section class="slide layout-list" data-n="12">
+<header><span class="stage">總結</span><h2>帶走三件事</h2></header>
+<div class="body">
+<ul><li><strong>上下文是有限資源</strong>：放越多，每一份新增內容的幫助越小</li><li><strong>目標是最小的一組高訊號 token</strong>，讓想要的結果最可能發生</li><li><strong>四種策略</strong>：寫入、選取、壓縮、隔離</li></ul>
+<p class="callout">還沒解決的問題：模型很擅長理解複雜的上下文，但在產生同樣複雜的長篇輸出時有明顯限制。</p>
+</div>
+<footer><span class="src">出處｜Wiki：<a href="../wiki/concepts/context-window.md">上下文視窗（Context Window）</a> · <a href="../wiki/concepts/designing-good-context.md">好的上下文長什麼樣子</a> · <a href="../wiki/concepts/four-strategies.md">四種策略總覽：寫入、選取、壓縮、隔離</a> · <a href="../wiki/concepts/research-landscape.md">研究全景：學術界怎麼分類</a>｜來源：<a href="../wiki/sources/s2-langchain.md">S2</a> <a href="../wiki/sources/s5-anthropic.md">S5</a> <a href="../wiki/sources/s7-survey.md">S7</a></span><span class="pg">12 / 12</span></footer>
+</section>
+</main>
+<div class="bar"><i id="bar"></i></div>
+<nav class="hud" aria-label="換頁"><button id="prev" aria-label="上一頁">‹</button><button id="next" aria-label="下一頁">›</button></nav>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let cur=0;
+function show(i){cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  history.replaceState(null,'','#'+(cur+1));}
+document.getElementById('prev').onclick=()=>show(cur-1);
+document.getElementById('next').onclick=()=>show(cur+1);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(cur+1)}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(cur-1)}
+  else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);});
+document.getElementById('deck').addEventListener('click',e=>{
+  if(e.target.closest('a'))return;
+  const r=e.currentTarget.getBoundingClientRect();show(cur+((e.clientX-r.left)<r.width*.3?-1:1));});
+let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)show(cur+(d<0?1:-1));x0=null;});
+// 渲染檢查用：回傳內容超出版面的頁碼
+window.checkOverflow=function(){const bad=[];const keep=cur;
+  slides.forEach((s,k)=>{slides.forEach((t,j)=>t.classList.toggle('on',j===k));
+    const b=s.querySelector('.body');
+    const vis=slides.filter(t=>getComputedStyle(t).display!=='none').length;
+    if(vis!==1)bad.push({slide:k+1,visible:vis});
+    if(s.scrollHeight>s.clientHeight+1||s.scrollWidth>s.clientWidth+1||b.scrollHeight>b.clientHeight+1)
+      bad.push({slide:k+1,body:b.scrollHeight+'/'+b.clientHeight});});
+  show(keep);return bad;};
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>

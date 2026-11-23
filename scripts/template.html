@@ -15,7 +15,7 @@ body{display:grid;place-items:center;overflow:hidden;color:var(--ink);
   font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;line-height:1.55}
 .deck{--w:min(100vw,calc(100vh*16/9));--w:min(100vw,calc(100dvh*16/9));
   width:var(--w);height:calc(var(--w)*9/16);font-size:calc(var(--w)/64);position:relative;background:var(--paper)}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:2.4em 3.6em 1.3em;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;background:var(--paper);flex-direction:column;padding:2.4em 3.6em 1.3em;overflow:hidden}
 .slide.on{display:flex}
 header{flex:none;margin-bottom:1.1em}
 .stage{display:inline-block;font-size:.78em;font-weight:700;letter-spacing:.12em;color:var(--accent);
@@ -35,6 +35,7 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:#ebe4
 .gcard{background:var(--card);border:1px solid var(--line);border-top:.3em solid var(--accent);border-radius:.4em;padding:.7em 1em}
 .gcard h3{margin:0 0 .25em;font-size:1.05em;color:var(--accent)}
 .gcard p{font-size:.88em;line-height:1.5}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 table{border-collapse:collapse;width:100%;font-size:.9em}
 th,td{text-align:left;vertical-align:top;padding:.5em .8em;border-bottom:1px solid var(--line)}
 th{color:var(--accent);font-weight:800;border-bottom:2px solid var(--accent)}
@@ -44,10 +45,10 @@ footer{flex:none;display:flex;justify-content:space-between;gap:1.5em;align-item
 footer a{color:var(--muted);text-underline-offset:.2em}
 footer a:hover{color:var(--accent)}
 .pg{white-space:nowrap;font-variant-numeric:tabular-nums}
-.cover{justify-content:center;background:linear-gradient(135deg,#0e6a62 0 38%,var(--paper) 38%)}
-.cover .body{justify-content:center;gap:1em;padding-left:42%}
-.cover h1{margin:0;font-size:2.5em;line-height:1.2;font-weight:900;text-wrap:balance}
-.cover footer{border:0}
+.layout-cover{justify-content:center;background:linear-gradient(135deg,#0e6a62 0 38%,var(--paper) 38%)}
+.layout-cover .body{justify-content:center;gap:1em;padding-left:42%}
+.layout-cover h1{margin:0;font-size:2.5em;line-height:1.2;font-weight:900;text-wrap:balance}
+.layout-cover footer{border:0}
 .hud{position:fixed;right:14px;bottom:12px;display:flex;gap:6px;opacity:.55}
 .hud:hover{opacity:1}
 .hud button{font:inherit;font-size:18px;width:38px;height:38px;border-radius:50%;border:0;background:#ffffff22;color:#fff;cursor:pointer}
@@ -89,6 +90,8 @@ addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].
 window.checkOverflow=function(){const bad=[];const keep=cur;
   slides.forEach((s,k)=>{slides.forEach((t,j)=>t.classList.toggle('on',j===k));
     const b=s.querySelector('.body');
+    const vis=slides.filter(t=>getComputedStyle(t).display!=='none').length;
+    if(vis!==1)bad.push({slide:k+1,visible:vis});
     if(s.scrollHeight>s.clientHeight+1||s.scrollWidth>s.clientWidth+1||b.scrollHeight>b.clientHeight+1)
       bad.push({slide:k+1,body:b.scrollHeight+'/'+b.clientHeight});});
   show(keep);return bad;};

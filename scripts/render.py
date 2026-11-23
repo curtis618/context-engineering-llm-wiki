@@ -39,8 +39,9 @@ def render_body(body, layout):
                 cols = 2 if len(items) in (2, 4) else 3
                 cells = []
                 for it in items:
-                    m = re.match(r"\*\*(.+?)\*\*[：:]\s*(.*)", it)
-                    cells.append(f"<div class=\"gcard\"><h3>{inline(m.group(1))}</h3><p>{inline(m.group(2))}</p></div>"
+                    m = re.match(r"\*\*(.+?)\*\*([：:])\s*(.*)", it)
+                    # 冒號保留在 HTML 裡（只是視覺上隱藏），渲染節點不能刪掉任何字
+                    cells.append(f"<div class=\"gcard\"><h3>{inline(m.group(1))}<span class=\"sr\">{m.group(2)}</span></h3><p>{inline(m.group(3))}</p></div>"
                                  if m else f"<div class=\"gcard\"><p>{inline(it)}</p></div>")
                 out.append(f"<div class=\"grid\" style=\"--cols:{cols}\">{''.join(cells)}</div>")
             else:
@@ -101,7 +102,7 @@ def main():
         else:
             inner = (f"<header><span class=\"stage\">{html.escape(meta.get('stage', ''))}</span><h2>{inline(meta['title'])}</h2></header>\n"
                      f"<div class=\"body\">\n{render_body(body, layout)}\n</div>")
-        sections.append(f"<section class=\"slide {layout}\" data-n=\"{n}\">\n{inner}\n{footer}\n</section>")
+        sections.append(f"<section class=\"slide layout-{layout}\" data-n=\"{n}\">\n{inner}\n{footer}\n</section>")
     page = (ROOT / "scripts" / "template.html").read_text(encoding="utf-8")
     page = page.replace("{{TITLE}}", html.escape(config["deck_title"])).replace("{{SLIDES}}", "\n".join(sections))
     OUT.parent.mkdir(exist_ok=True)
