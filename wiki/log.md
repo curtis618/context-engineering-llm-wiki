@@ -51,3 +51,10 @@
 - 問題：ingest 時把幾組「強調重點不同」的說法寫成互相對立的「不同觀點」，但原文並沒有互相反駁。
 - 修正 `what-is-context-engineering.md`、`designing-good-context.md`、`compress-context.md`、`production-lessons.md`：「不同觀點」改為「各家強調的重點」或「相關提醒」，並寫明兩邊談的對象。
 - 其他修正：「一次性的工作」改為「單一、獨立的工作」；工具「功能重疊」改為「選擇模糊不清」；價格補上「以 Claude Sonnet 為例」；「等幾週」補上 BERT 年代的前提。
+
+## 2026-11-23 第一次執行「關卡 0」（wiki 對 raw 的 AI 審查）後修正
+
+- 審查了 134 條有出處的條目，找到 12 個問題（中 4、低 8，沒有高）。
+- `context-failure-modes.md`：六條研究與例子補上「據該文轉述」，因為原始研究沒有讀；補回「軼事性質」「有時」。
+- `designing-good-context.md`、`production-lessons.md`、`what-is-context-engineering.md`、`compress-context.md`：上一輪把「對立」改成「其實不衝突」，但那也是 wiki 自己下的結論。改成只並列、註明出自不同文章。
+- 補回被拿掉的限定詞與前提：「除非絕對必要」「典型任務」（原寫成平均）「比較不容易重犯」「在最好的模型上」「一項關鍵優先事項」（原寫成首要任務）；一句 Karpathy 的論點補上歸屬。
