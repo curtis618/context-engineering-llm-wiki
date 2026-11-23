@@ -17,3 +17,4 @@
 
 - [S1 Willison〈Context engineering〉](sources/s1-willison.md)：這個詞為什麼比 prompt engineering 好。
 - [S2 LangChain〈Context Engineering〉](sources/s2-langchain.md)：四種策略的分類與實例。
+- [S3〈How Long Contexts Fail〉](sources/s3-breunig.md)：長上下文出錯的四種方式與證據。

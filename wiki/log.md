@@ -16,3 +16,8 @@
 - 新增 `raw/S2-langchain.md`、`sources/s2-langchain.md`。
 - 新增概念頁：`context-window.md`、`context-failure-modes.md`、`four-strategies.md`、`write-context.md`、`select-context.md`、`compress-context.md`、`isolate-context.md`。
 - 更新 `what-is-context-engineering.md`：加入 LangChain 的定義與相關頁面連結。
+
+## 2026-11-23 ingest S3 How Long Contexts Fail
+
+- 新增 `raw/S3-breunig.md`、`sources/s3-breunig.md`。
+- 改寫 `context-failure-modes.md`：四種模式各自成節，補上 S3 的定義、研究與實例。
