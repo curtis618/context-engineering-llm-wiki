@@ -2,6 +2,16 @@
 
 > 繳交標題：`學校 學號 系級 姓名 Context Engineering`（請自行填入）
 
+## 繳交連結
+
+| 項目 | 連結 |
+|---|---|
+| 教學 HTML 簡報 | https://curtis618.github.io/context-engineering-llm-wiki/ |
+| LLM Wiki（目錄） | https://github.com/curtis618/context-engineering-llm-wiki/blob/main/wiki/index.md |
+| 整個專案（含 git 歷程） | https://github.com/curtis618/context-engineering-llm-wiki |
+| Graph 流程說明 | https://github.com/curtis618/context-engineering-llm-wiki/blob/main/workflow/topic-slides.md |
+| 實際執行的檢查紀錄 | https://github.com/curtis618/context-engineering-llm-wiki/blob/main/topic-context-engineering/report.md |
+
 本作業使用 Claude Code 作為 coding agent 完成。需求訪談的回答、大綱與成品的確認由我本人決定，建檔、ingest、檢查腳本與簡報由 AI 依 `AGENTS.md` 與 `workflow/topic-slides.md` 執行。
 
 ## 1. LLM Wiki 主題與簡介
