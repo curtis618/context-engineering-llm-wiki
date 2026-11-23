@@ -17,9 +17,17 @@
 
 - 壓縮得太兇可能丟掉細節，而那些細節要到後面才看得出重要。建議先確保重要的都留下，再逐步刪去多餘的。 [S5]
 
+- Manus 也指出，不可還原的壓縮有風險，因為無法預知哪一筆資料之後會變得關鍵。 [S6]
+
+## 不同觀點
+
+- 用摘要壓縮：Anthropic 與 LangChain 都把「摘要後繼續」當成主要做法，摘要後原文就不在上下文裡了。 [S2][S5]
+- 可還原的壓縮：Manus 主張壓縮要能還原，例如丟掉網頁內容但留下網址、丟掉文件內容但留下檔案路徑，需要時再讀回來。 [S6]
+
 ## 相關頁面
 
 - [四種策略總覽](four-strategies.md)
 - [選取](select-context.md)
 - [隔離](isolate-context.md)
-- 來源：[S2 LangChain](../sources/s2-langchain.md)、[S5 Anthropic](../sources/s5-anthropic.md)
+- [實戰經驗：Manus 的六條心得](production-lessons.md)
+- 來源：[S2 LangChain](../sources/s2-langchain.md)、[S5 Anthropic](../sources/s5-anthropic.md)、[S6 Manus](../sources/s6-manus.md)

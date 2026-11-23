@@ -34,3 +34,9 @@
 - 更新 `what-is-context-engineering.md`（Anthropic 的定義、與 prompt engineering 的差別、新增「不同觀點」：給全部 vs 給最少）。
 - 更新 `context-window.md`（有限資源、注意力預算）、`context-rot.md`（成因解釋）。
 - 更新四個策略頁：寫入（結構化筆記）、選取（即時取用）、壓縮（compaction 與風險）、隔離（子代理回傳摘要）。
+
+## 2026-11-23 ingest S6 Manus
+
+- 新增 `raw/S6-manus.md`、`sources/s6-manus.md`。
+- 新增概念頁 `production-lessons.md`，含「不同觀點」：錯誤該不該留在上下文（S6 vs S3）。
+- 更新 `write-context.md`（檔案系統、todo.md）、`compress-context.md`（新增「不同觀點」：摘要 vs 可還原壓縮）、`designing-good-context.md`（新增「不同觀點」：範例有幫助 vs 可能帶偏）。

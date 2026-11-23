@@ -23,9 +23,15 @@
 
 - 仍然強烈建議提供範例，但不要塞一長串特殊情況，而是挑少量、多樣、有代表性的例子。 [S5]
 
+## 不同觀點
+
+- 範例有幫助：Anthropic 仍強烈建議提供少量、多樣、有代表性的範例。 [S5]
+- 範例可能帶偏：Manus 提醒，agent 會模仿上下文裡重複的模式，範例太一致時會讓它陷入固定做法，所以要加入變化。 [S6]
+
 ## 相關頁面
 
+- [實戰經驗：Manus 的六條心得](production-lessons.md)
 - [什麼是 Context Engineering](what-is-context-engineering.md)
 - [上下文視窗](context-window.md)
 - [選取](select-context.md)
-- 來源：[S5 Anthropic](../sources/s5-anthropic.md)
+- 來源：[S5 Anthropic](../sources/s5-anthropic.md)、[S6 Manus](../sources/s6-manus.md)
